@@ -9,13 +9,13 @@ const props = defineProps({
     client: Object
 });
 
-// Create a reactive form data object
 const formData = ref({});
 const formErrors = ref({});
-// Pre-populate formData with the client's existing data for the fields in template_fields
 props.template_fields.forEach((field) => {
     formData.value[field] = props.client[field] || '';
 });
+
+formData.value.hp_field = '';
 
 const submitForm = () => {
     const dataToSubmit = new FormData();
@@ -25,25 +25,21 @@ const submitForm = () => {
         dataToSubmit.append(key, value);
     }
 
-    // Perform the POST request with Inertia
     router.post(`/client-portal/${props.client.access_token}/save`, dataToSubmit, {
         onSuccess: () => {
             console.log('Form submitted successfully');
             // Handle success
         },
         onError: (errors) => {
-            // Assign the error messages to the reactive formErrors object
             formErrors.value = errors;
         }
     });
 };
 
-// Helper method to check if a field is a file input
 const isFileField = (fieldName) => {
     return fieldName.includes('_image') || fieldName.includes('_file');
 };
 
-// Method to handle file input changes
 const handleFileChange = (event, fieldName) => {
     const file = event.target.files[0];
     formData.value[fieldName] = file;
@@ -62,6 +58,8 @@ const handleFileChange = (event, fieldName) => {
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <form @submit.prevent="submitForm" class="space-y-4">
+                            <!-- Honeypot field (hidden from users) -->
+                            <input type="text" name="hp_field" style="display: none;" v-model="formData.hp_field" />
                             <div v-for="fieldName in template_fields" :key="fieldName" class="flex flex-col">
                                 <label :for="fieldName" class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                     {{ fieldName }}

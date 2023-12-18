@@ -28,13 +28,13 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/client-portal/{token}', [ClientPortalController::class, 'showForm']);
+Route::get('/client-portal/{token}', [ClientPortalController::class, 'showForm'])->name('showForm');
 Route::post('/client-portal/{token}/save', [ClientPortalController::class, 'storeClientInfo']);
 
 Route::middleware('auth')->group(function () {
