@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('tax_id')->nullable();
             $table->string('driver_license_image')->nullable();
+            $table->string('document_file')->nullable();
             $table->string('payment_information')->nullable();
             $table->timestamps();
         });

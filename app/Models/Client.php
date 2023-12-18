@@ -16,6 +16,7 @@ class Client extends Model
         'email',
         'tax_id',
         'driver_license_image',
+        'document_file',
         'payment_information',
     ];
 

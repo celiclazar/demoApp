@@ -9,6 +9,7 @@ const clientFields = [
     'email',
     'tax_id',
     'driver_licence_image',
+    'document_file',
     'payment_information'
 ];
 

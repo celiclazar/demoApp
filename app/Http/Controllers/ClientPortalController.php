@@ -38,13 +38,29 @@ class ClientPortalController extends Controller
             if ($field === 'phone') {
                 $rules[$field] = 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:8';
             }
+
+            if ($field === 'document_file') {
+                $rules[$field] = 'nullable|file|mimes:pdf|max:2048';
+            }
         }
 
         $validatedData = $request->validate($rules);
+
+        // Handle the PDF document upload
+        if ($request->hasFile('document_file')) {
+            $documentPath = $request->file('document_file')->store('client_documents', 'public');
+            $client->document_file = $documentPath;
+        }
+
+        // Handle the driver's license image upload
+        if ($request->hasFile('driver_license_image')) {
+            $licenseImagePath = $request->file('driver_license_image')->store('client_licenses', 'public');
+            $client->driver_license_image = $licenseImagePath;
+        }
+
+        // Update other fields
         foreach ($templateFields as $field) {
-            if ($request->hasFile($field)) {
-                $validatedData[$field] = $request->file($field)->store('uploads', 'public');
-            } elseif (isset($validatedData[$field])) {
+            if (isset($validatedData[$field]) && !$request->hasFile($field)) {
                 $client->$field = $validatedData[$field];
             }
         }
