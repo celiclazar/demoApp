@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Client;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Template;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 use App\Mail\ClientAccessMail;
+use App\Models\Client;
+use App\Models\Template;
 
 class ClientController extends Controller
 {
@@ -57,6 +56,7 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
+        //TODO need to fix this, probably on frontend
         $validated = $request->validate([
             'client_name' => 'required|string|max:255',
             'client_email' => 'required|email',
@@ -70,24 +70,6 @@ class ClientController extends Controller
         ]);
 
         return redirect()->route('clients.index')->with('success', 'Client updated successfully!');
-
-        /*
-         * $emailChanged = $client->email !== $validated['client_email'];
-
-    $client->update([
-        'company_name' => $validated['client_name'],
-        'email' => $validated['client_email'],
-        'template_id' => $validated['selectedTemplate'] ?? null,
-    ]);
-
-    if ($emailChanged) {
-        $client->access_token = Str::random(40);
-        $client->save();
-
-        Mail::to($client->email)->send(new ClientAccessMail($client));
-    }
-
-    return redirect()->route('clients.index')->with('success', 'Client updated successfully!');*/
 
     }
 

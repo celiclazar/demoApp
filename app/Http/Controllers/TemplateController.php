@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Template;
 use Inertia\Inertia;
+use App\Http\Controllers\Controller;
+use App\Models\Template;
 
 class TemplateController extends Controller
 {
@@ -41,7 +41,6 @@ class TemplateController extends Controller
     public function update(Request $request, Template $template)
     {
         $data = json_decode($request->getContent(), true);
-        //dd($data);
         $template->update([
             'name' => $data['name'],
             'fields' => json_encode($data['fields']),

@@ -4,6 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { defineProps } from 'vue';
 
 const { clients } = defineProps(['clients']);
+
 </script>
 
 <template>
@@ -12,19 +13,15 @@ const { clients } = defineProps(['clients']);
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
         </template>
-        
+
         <div>
         <h1 class="text-2xl font-semibold mb-4">Clients</h1>
-
-        <!-- Display a list of clients -->
-        
         <ul>
             <li v-for="client in clients" :key="client.id" class="mb-2">
                 {{ client.email }}
             </li>
         </ul>
         </div>
-        <!-- Display clients and templates using Inertia links with improved styling -->
         <div class="mt-6">
             <h2 class="text-lg font-semibold mb-2">Manage Data:</h2>
             <div class="flex space-x-4">
@@ -32,9 +29,7 @@ const { clients } = defineProps(['clients']);
                 <Link :href="route('templates.index')" class="text-blue-500 hover:underline">View Templates</Link>
             </div>
         </div>
-
-
     </AuthenticatedLayout>
-    
+
 </template>
 

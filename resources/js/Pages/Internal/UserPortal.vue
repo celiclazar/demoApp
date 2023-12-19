@@ -1,8 +1,7 @@
 <script setup>
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Link  } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3'
+import { Link, router  } from '@inertiajs/vue3';
 
 const formData = {
     client_name: '',

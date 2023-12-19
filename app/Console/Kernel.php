@@ -17,20 +17,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        //TODO write it as separate command that will run wit CRON
         $schedule->call(function () {
             $clients = Client::all();
-    
+
             foreach ($clients as $client) {
                 if (!$client->hasCompleteInfo()) {
-                    // Send email for incomplete information
                     Mail::to($client->email)->send(new IncompleteInfoMail($client));
                 } else {
-                    // Send email for complete information
                     Mail::to($client->email)->send(new CompleteInfoMail($client));
                 }
             }
-        })->everyMinute(); // Or adjust the frequency as needed
-        // $schedule->command('inspire')->hourly();
+        })->everyMinute();
+
+        // Or adjust the frequency as needed
+        // $schedule->command('inspire')->daily(); etc
     }
 
     /**

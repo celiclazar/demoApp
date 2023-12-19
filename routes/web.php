@@ -1,14 +1,12 @@
 <?php
 
-use App\Http\Controllers\ClientPortalController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClientPortalController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemplateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/internal-portal', function ()
-    {
+    Route::get('/internal-portal', function () {
         return Inertia::render('Internal/UserPortal');
     })->name('internal.portal');
 

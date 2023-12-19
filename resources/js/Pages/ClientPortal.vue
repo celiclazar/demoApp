@@ -1,7 +1,6 @@
 <script setup>
 
 import { ref } from 'vue';
-
 import { router, Head } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -20,7 +19,6 @@ formData.value.hp_field = '';
 const submitForm = () => {
     const dataToSubmit = new FormData();
 
-    // Append each field value to FormData
     for (const [key, value] of Object.entries(formData.value)) {
         dataToSubmit.append(key, value);
     }
