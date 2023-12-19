@@ -25,6 +25,7 @@ class ClientPortalController extends Controller
             return response()->json(['error' => 'Spam detected.'], 422);
         }
 
+        //dd($request->all());
         $client = Client::where('access_token', $token)->firstOrFail();
         $templateFields = json_decode($client->template->fields);
 
@@ -55,6 +56,7 @@ class ClientPortalController extends Controller
         // Handle the driver's license image upload
         if ($request->hasFile('driver_license_image')) {
             $licenseImagePath = $request->file('driver_license_image')->store('client_licenses', 'public');
+            dd($licenseImagePath);
             $client->driver_license_image = $licenseImagePath;
         }
 
